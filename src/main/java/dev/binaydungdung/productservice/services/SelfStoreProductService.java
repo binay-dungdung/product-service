@@ -27,4 +27,10 @@ public class SelfStoreProductService implements ProductService {
 		return null;
 	}
 
+	@Override
+	public GenericProductDto deleteProduct(Long id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }
