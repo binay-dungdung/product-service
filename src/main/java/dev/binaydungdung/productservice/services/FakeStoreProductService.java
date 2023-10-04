@@ -1,5 +1,8 @@
 package dev.binaydungdung.productservice.services;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.http.ResponseEntity;
@@ -15,11 +18,31 @@ public class FakeStoreProductService implements ProductService {
 	private RestTemplate restTemplate;
 	
 	private String getProductUrl = "https://fakestoreapi.com/products/{id}";
-	private String productBaseUrl = "https://fakestoreapi.com/products";;
+	private String productBaseUrl = "https://fakestoreapi.com/products";
 	
 	@Autowired
 	public FakeStoreProductService(RestTemplateBuilder restTemplateBuilder) {
 		this.restTemplate = restTemplateBuilder.build();
+	}
+	
+	@Override
+	public List<GenericProductDto> getAllProducts() {
+		ResponseEntity<FakeStoreProductDto[]> response = restTemplate.getForEntity(
+				productBaseUrl, FakeStoreProductDto[].class);
+		
+		List<GenericProductDto> genericProducts = new ArrayList<>();
+		for (FakeStoreProductDto fakeStoreProductDto: response.getBody()) {
+			GenericProductDto product = new GenericProductDto();
+			product.setId(fakeStoreProductDto.getId());
+			product.setTitle(fakeStoreProductDto.getTitle());
+			product.setDescription(fakeStoreProductDto.getDescription());
+			product.setImage(fakeStoreProductDto.getImage());
+			product.setPrice(fakeStoreProductDto.getPrice());
+			product.setCategory(fakeStoreProductDto.getCategory());
+			
+			genericProducts.add(product);
+		}
+		return genericProducts;
 	}
 
 	@Override

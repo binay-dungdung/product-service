@@ -1,5 +1,7 @@
 package dev.binaydungdung.productservice.controllers;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,8 +27,8 @@ public class ProductController {
 	}
 
 	@GetMapping
-	public void getAllProducts() {
-		
+	public List<GenericProductDto> getAllProducts() {
+		return productService.getAllProducts();
 	}
 	
 	@GetMapping("{id}")
