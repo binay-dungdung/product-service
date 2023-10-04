@@ -5,6 +5,8 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.client.RestTemplateBuilder;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -27,8 +29,12 @@ public class FakeStoreProductService implements ProductService {
 	
 	@Override
 	public List<GenericProductDto> getAllProducts() {
-		ResponseEntity<FakeStoreProductDto[]> response = restTemplate.getForEntity(
-				productBaseUrl, FakeStoreProductDto[].class);
+//		ResponseEntity<FakeStoreProductDto[]> response = restTemplate.getForEntity(
+//				productBaseUrl, FakeStoreProductDto[].class);
+		
+		ResponseEntity<List<FakeStoreProductDto>> response = restTemplate.exchange(
+				productBaseUrl, HttpMethod.GET, null, 
+				new ParameterizedTypeReference<List<FakeStoreProductDto>>() {});
 		
 		List<GenericProductDto> genericProducts = new ArrayList<>();
 		for (FakeStoreProductDto fakeStoreProductDto: response.getBody()) {
