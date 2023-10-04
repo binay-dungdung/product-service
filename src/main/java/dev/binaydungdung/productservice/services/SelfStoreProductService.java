@@ -13,4 +13,10 @@ public class SelfStoreProductService implements ProductService {
 		return null;
 	}
 
+	@Override
+	public GenericProductDto createProduct(GenericProductDto genericProductDto) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }
