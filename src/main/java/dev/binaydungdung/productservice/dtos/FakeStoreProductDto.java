@@ -1,15 +1,15 @@
-package dev.binaydungdung.productservice.models;
+package dev.binaydungdung.productservice.dtos;
 
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
-public class Product extends BaseModel {
+public class FakeStoreProductDto {
 
 	private String title;
 	private String description;
 	private String image;
 	private double price;
-	private Category category;
+	private String category;
 }
