@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -87,6 +88,24 @@ public class FakeStoreProductService implements ProductService {
 	public GenericProductDto deleteProduct(Long id) {
 		ResponseEntity<FakeStoreProductDto> response = restTemplate.exchange(
 				specificProductUrl, HttpMethod.DELETE, null, FakeStoreProductDto.class, id);
+		FakeStoreProductDto fakeStoreProductDto = response.getBody();
+		
+		GenericProductDto product = new GenericProductDto();
+		product.setId(fakeStoreProductDto.getId());
+		product.setTitle(fakeStoreProductDto.getTitle());
+		product.setDescription(fakeStoreProductDto.getDescription());
+		product.setImage(fakeStoreProductDto.getImage());
+		product.setPrice(fakeStoreProductDto.getPrice());
+		product.setCategory(fakeStoreProductDto.getCategory());
+		return product;
+	}
+	
+	@Override
+	public GenericProductDto updateProduct(Long id, GenericProductDto genericProductDto) {
+		ResponseEntity<FakeStoreProductDto> response = restTemplate.exchange(
+				specificProductUrl, HttpMethod.PUT, 
+				new HttpEntity<GenericProductDto>(genericProductDto), 
+				FakeStoreProductDto.class, id);
 		FakeStoreProductDto fakeStoreProductDto = response.getBody();
 		
 		GenericProductDto product = new GenericProductDto();
