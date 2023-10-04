@@ -14,6 +14,7 @@ import org.springframework.web.client.RestTemplate;
 
 import dev.binaydungdung.productservice.dtos.FakeStoreProductDto;
 import dev.binaydungdung.productservice.dtos.GenericProductDto;
+import dev.binaydungdung.productservice.exceptions.NotFoundException;
 
 @Service("fakeStoreProductService")
 public class FakeStoreProductService implements ProductService {
@@ -53,10 +54,14 @@ public class FakeStoreProductService implements ProductService {
 	}
 
 	@Override
-	public GenericProductDto getProductById(Long id) {
+	public GenericProductDto getProductById(Long id) throws NotFoundException {
 		ResponseEntity<FakeStoreProductDto> response = restTemplate.getForEntity(
 				specificProductUrl, FakeStoreProductDto.class, id);
 		FakeStoreProductDto fakeStoreProductDto = response.getBody();
+		
+		if (fakeStoreProductDto == null) {
+			throw new NotFoundException("Product with id " + id + " does not exists");
+		}
 		
 		GenericProductDto product = new GenericProductDto();
 		product.setId(fakeStoreProductDto.getId());
@@ -85,10 +90,14 @@ public class FakeStoreProductService implements ProductService {
 	}
 	
 	@Override
-	public GenericProductDto deleteProduct(Long id) {
+	public GenericProductDto deleteProduct(Long id) throws NotFoundException {
 		ResponseEntity<FakeStoreProductDto> response = restTemplate.exchange(
 				specificProductUrl, HttpMethod.DELETE, null, FakeStoreProductDto.class, id);
 		FakeStoreProductDto fakeStoreProductDto = response.getBody();
+		
+		if (fakeStoreProductDto == null) {
+			throw new NotFoundException("Product with id " + id + " does not exists");
+		}
 		
 		GenericProductDto product = new GenericProductDto();
 		product.setId(fakeStoreProductDto.getId());

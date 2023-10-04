@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import dev.binaydungdung.productservice.dtos.GenericProductDto;
+import dev.binaydungdung.productservice.exceptions.NotFoundException;
 import dev.binaydungdung.productservice.services.ProductService;
 
 @RestController
@@ -32,7 +33,7 @@ public class ProductController {
 	}
 	
 	@GetMapping("{id}")
-	public GenericProductDto getProductById(@PathVariable("id") Long id) {
+	public GenericProductDto getProductById(@PathVariable("id") Long id) throws NotFoundException {
 		return productService.getProductById(id);
 	}
 	
@@ -47,7 +48,7 @@ public class ProductController {
 	}
 	
 	@DeleteMapping("{id}")
-	public GenericProductDto deleteProductById(@PathVariable("id") Long id) {
+	public GenericProductDto deleteProductById(@PathVariable("id") Long id) throws NotFoundException {
 		return productService.deleteProduct(id);
 	}
 }
