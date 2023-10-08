@@ -1,4 +1,4 @@
-package dev.binaydungdung.productservice.dtos;
+package dev.binaydungdung.productservice.thirdpartyclient.fakestore;
 
 import lombok.Getter;
 import lombok.Setter;

@@ -20,7 +20,7 @@ import dev.binaydungdung.productservice.services.ProductService;
 @RequestMapping("/products")
 public class ProductController {
 	
-	private ProductService productService;
+	private final ProductService productService;
 	
 	// TODO: Use @Qualifier("${productService.type}")
 	public ProductController(@Qualifier("fakeStoreProductService") ProductService productService) {
