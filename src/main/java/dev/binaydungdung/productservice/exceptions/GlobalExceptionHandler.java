@@ -22,6 +22,20 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 				HttpStatus.NOT_FOUND);
 	}
 
+	@ExceptionHandler(ClientException.class)
+	public ResponseEntity<ErrorDto> handleClientException(ClientException clientException) {
+		return new ResponseEntity<>(
+				new ErrorDto(HttpStatus.BAD_REQUEST.name(), clientException.getMessage()),
+				HttpStatus.BAD_REQUEST);
+	}
+
+	@ExceptionHandler(ServerException.class)
+	public ResponseEntity<ErrorDto> handleServerException(ServerException serverException) {
+		return new ResponseEntity<>(
+				new ErrorDto(HttpStatus.INTERNAL_SERVER_ERROR.name(), serverException.getMessage()),
+				HttpStatus.INTERNAL_SERVER_ERROR);
+	}
+
 	@ExceptionHandler(Throwable.class)
 	@ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
 	public ErrorDto handleGlobalException(Throwable ex) {

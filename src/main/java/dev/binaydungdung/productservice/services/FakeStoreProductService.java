@@ -1,15 +1,13 @@
 package dev.binaydungdung.productservice.services;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import dev.binaydungdung.productservice.models.Product;
-import org.springframework.stereotype.Service;
-
-import dev.binaydungdung.productservice.thirdpartyclient.fakestore.FakeStoreProductDto;
 import dev.binaydungdung.productservice.dtos.GenericProductDto;
 import dev.binaydungdung.productservice.exceptions.NotFoundException;
+import dev.binaydungdung.productservice.thirdpartyclient.fakestore.FakeStoreProductDto;
 import dev.binaydungdung.productservice.thirdpartyclient.fakestore.FakeStoreProductServiceClient;
+import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Service("fakeStoreProductService")
 public class FakeStoreProductService implements ProductService {
@@ -24,7 +22,7 @@ public class FakeStoreProductService implements ProductService {
 	public List<GenericProductDto> getAllProducts() {
 		List<GenericProductDto> genericProducts = new ArrayList<>();
 		fakeStoreProductServiceClient.getAllProducts().forEach(
-				fakeStoreProductDto -> genericProducts.add(getGenericProductFromFakeStoreProduct(fakeStoreProductDto))
+			fakeStoreProductDto -> genericProducts.add(getGenericProductFromFakeStoreProduct(fakeStoreProductDto))
 		);
 
 		return genericProducts;
@@ -58,7 +56,7 @@ public class FakeStoreProductService implements ProductService {
 
 		return getGenericProductFromFakeStoreProduct(fakeStoreProductDto);
 	}
-	
+
 	@Override
 	public GenericProductDto updateProduct(Long id, GenericProductDto genericProductDto) {
 		FakeStoreProductDto fakeStoreProductDto = fakeStoreProductServiceClient.updateProduct(id, genericProductDto);

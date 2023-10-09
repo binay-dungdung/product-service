@@ -23,12 +23,12 @@ public class ProductController {
 	private final ProductService productService;
 	
 	// TODO: Use @Qualifier("${productService.type}")
-	public ProductController(@Qualifier("fakeStoreProductService") ProductService productService) {
+	public ProductController(@Qualifier("selfStoreProductService") ProductService productService) {
 		this.productService = productService;
 	}
 
 	@GetMapping
-	public List<GenericProductDto> getAllProducts() {
+	public List<GenericProductDto> getAllProducts() throws NotFoundException {
 		return productService.getAllProducts();
 	}
 	
@@ -43,7 +43,8 @@ public class ProductController {
 	}
 	
 	@PutMapping("{id}")
-	public GenericProductDto updateProductById(@PathVariable("id") Long id, @RequestBody GenericProductDto genericProductDto) {
+	public GenericProductDto updateProductById(@PathVariable("id") Long id, @RequestBody GenericProductDto genericProductDto)
+			throws NotFoundException {
 		return productService.updateProduct(id, genericProductDto);
 	}
 	

@@ -7,7 +7,7 @@ import dev.binaydungdung.productservice.exceptions.NotFoundException;
 
 public interface ProductService {
 
-	List<GenericProductDto> getAllProducts();
+	List<GenericProductDto> getAllProducts() throws NotFoundException;
 	
 	GenericProductDto getProductById(Long id) throws NotFoundException;
 
@@ -15,6 +15,6 @@ public interface ProductService {
 
 	GenericProductDto deleteProduct(Long id) throws NotFoundException;
 
-	GenericProductDto updateProduct(Long id, GenericProductDto genericProductDto);
+	GenericProductDto updateProduct(Long id, GenericProductDto genericProductDto) throws NotFoundException;
 	
 }
